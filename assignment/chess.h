@@ -27,7 +27,6 @@ struct ChessPiece{
 };
 
 struct ChessSquare{
-  bool is_set;
   struct ChessPiece piece;
   bool is_occupied;
 };
@@ -36,13 +35,15 @@ typedef ChessSquare ChessBoard[8][8] ;
 typedef char File;
 typedef int Rank;
 
-bool is_piece(struct ChessPiece piece, enum Color color, enum PieceType type);
 void init_chess_board(ChessBoard chess_board);
+void setup_chess_board(ChessBoard chess_board);
+
 struct ChessSquare* get_square(ChessBoard chess_board,  char file, int rank);
+struct ChessPiece get_piece(ChessBoard chess_board, char file, int rank);
+
+bool is_piece(struct ChessPiece piece, enum Color color, enum PieceType type);
 bool is_square_occupied(ChessBoard chess_board, char file, int rank);
 bool add_piece(ChessBoard chess_board, char file, int rank, struct ChessPiece chess_piece);
-struct ChessPiece get_piece(ChessBoard chess_board, char file, int rank);
-void setup_chess_board(ChessBoard chess_board);
 bool remove_piece(ChessBoard chess_board, File file, Rank rank);
 
 bool squares_share_file(File file1,Rank rank1,File file2, Rank rank2);
