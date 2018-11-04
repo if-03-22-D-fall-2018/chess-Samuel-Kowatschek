@@ -69,3 +69,16 @@ struct ChessPiece temp_piece;
   chess_board[rank][(int)file].piece=temp_piece;
   return true;
 }
+
+void setup_chess_board(ChessBoard chess_board){
+  for (int i = 0; i < 8; i++) {
+    for (int j = 1; i < 6; j++) {
+      chess_board[i][0].piece.type=PieceType[0];
+      chess_board[i][0].piece.color=White;
+    }
+    for (size_t j = 0; j < 8; j++) {
+      chess_board[i][0].piece.type=Pawn;
+      chess_board[i][0].piece.color=White;
+    }
+  }
+}
