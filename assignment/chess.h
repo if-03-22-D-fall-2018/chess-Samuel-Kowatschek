@@ -10,12 +10,12 @@
  * Basic chess functions.
  * ----------------------------------------------------------
  */
-#include <stdbool.h>
 
+#ifndef ___CHESS_H
+#define ___CHESS_H
 
 enum PieceType{Pawn, Knight, Rook, Bishop, Queen, King, NoPiece};
-
-
+enum Move{NormalMove, CaptureMove};
 enum Color{White,Black};
 
 struct ChessPiece{
@@ -25,7 +25,6 @@ struct ChessPiece{
 
 struct ChessSquare{
   struct ChessPiece piece;
-  enum PieceType NoPiece;
   bool is_occupied;
 };
 
@@ -48,6 +47,8 @@ bool squares_share_file(File file1,Rank rank1,File file2, Rank rank2);
 bool squares_share_rank(File file1,Rank rank1,File file2, Rank rank2);
 bool squares_share_diagonal(File file1,Rank rank1,File file2, Rank rank2);
 bool squares_share_knights_move(File file1,Rank rank1,File file2, Rank rank2);
-bool squares_share_pawns_move(File file1,Rank rank1,File file2, Rank rank2);
-bool squares_share_queens_move(File file1,Rank rank1,File file2, Rank rank2);
+bool squares_share_pawns_move(enum Color color, enum Move NormalMove, File file1,Rank rank1,File file2, Rank rank2);
+bool squares_share_queens_move(File file1 ,Rank rank1,File file2, Rank rank2);
 bool squares_share_kings_move(File file1,Rank rank1,File file2, Rank rank2);
+
+#endif
