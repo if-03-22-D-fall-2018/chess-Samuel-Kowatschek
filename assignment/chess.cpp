@@ -166,3 +166,10 @@ bool squares_share_file(File file1,Rank rank1,File file2, Rank rank2){
 bool squares_share_rank(File file1,Rank rank1,File file2, Rank rank2){
   return rank1==rank2;
 }
+
+bool squares_share_kings_move(File file1,Rank rank1,File file2, Rank rank2){
+  if(file1==file2||file1=file2/*||(file1-'a')+1==rank1||((int)file1)==rank2*/){
+    return true;
+  }
+  return false;
+}
