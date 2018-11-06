@@ -71,14 +71,98 @@ struct ChessPiece temp_piece;
 }
 
 void setup_chess_board(ChessBoard chess_board){
-  for (int i = 0; i < 8; i++) {
-    for (int j = 1; i < 6; j++) {
-      chess_board[i][0].piece.type=PieceType[0];
-      chess_board[i][0].piece.color=White;
-    }
-    for (size_t j = 0; j < 8; j++) {
-      chess_board[i][0].piece.type=Pawn;
-      chess_board[i][0].piece.color=White;
-    }
+
+  //White_Pawn
+  for (size_t i = 0; i < 8; i++)
+  {
+    chess_board[1][i].piece.type=Pawn;
+    chess_board[1][i].piece.color=White;
+    chess_board[1][i].is_occupied=true;
   }
+  //Black_Pawn
+  for (size_t i = 0; i < 8; i++)
+  {
+    chess_board[6][i].piece.type=Pawn;
+    chess_board[6][i].piece.color=Black;
+    chess_board[6][i].is_occupied=true;
+  }
+  //White_Rook
+  chess_board[0][0].piece.type=Rook;
+  chess_board[0][0].piece.color=White;
+  chess_board[0][0].is_occupied=true;
+  chess_board[0][7].piece.type=Rook;
+  chess_board[0][7].piece.color=White;
+  chess_board[0][7].is_occupied=true;
+  //Black_Rook
+  chess_board[7][0].piece.type=Rook;
+  chess_board[7][0].piece.color=Black;
+  chess_board[7][0].is_occupied=true;
+  chess_board[7][7].piece.type=Rook;
+  chess_board[7][7].piece.color=Black;
+  chess_board[7][7].is_occupied=true;
+  //White_Knight
+  chess_board[0][1].piece.type=Knight;
+  chess_board[0][1].piece.color=White;
+  chess_board[0][1].is_occupied=true;
+  chess_board[0][6].piece.type=Knight;
+  chess_board[0][6].piece.color=White;
+  chess_board[0][6].is_occupied=true;
+  //Black_Knight
+  chess_board[7][1].piece.type=Knight;
+  chess_board[7][1].piece.color=White;
+  chess_board[7][1].is_occupied=true;
+  chess_board[7][6].piece.type=Knight;
+  chess_board[7][6].piece.color=White;
+  chess_board[7][6].is_occupied=true;
+  //White_Bishop
+  chess_board[0][2].piece.type=Bishop;
+  chess_board[0][2].piece.color=White;
+  chess_board[0][2].is_occupied=true;
+  chess_board[0][5].piece.type=Bishop;
+  chess_board[0][5].piece.color=White;
+  chess_board[0][5].is_occupied=true;
+  //Black_Bishop
+  chess_board[7][2].piece.type=Bishop;
+  chess_board[7][2].piece.color=Black;
+  chess_board[7][2].is_occupied=true;
+  chess_board[7][5].piece.type=Bishop;
+  chess_board[7][5].piece.color=Black;
+  chess_board[7][5].is_occupied=true;
+  //White King
+  chess_board[0][3].piece.type=King;
+  chess_board[0][3].piece.color=White;
+  chess_board[0][3].is_occupied=true;
+  //Black_King
+  chess_board[7][3].piece.type=King;
+  chess_board[7][3].piece.color=Black;
+  chess_board[7][3].is_occupied=true;
+  //White_Queen
+  chess_board[0][4].piece.type=Queen;
+  chess_board[0][4].piece.color=White;
+  chess_board[0][4].is_occupied=true;
+  //Black_Queen
+  chess_board[7][4].piece.type=Queen;
+  chess_board[7][4].piece.color=Black;
+  chess_board[7][4].is_occupied=true;
+
+}
+
+bool squares_share_diagonal(File file1,Rank rank1,File file2, Rank rank2){
+  int multiplicatorFile=1;
+  int multiplicatorRank=1;
+  if(file1-file2-'a'<0){
+    multiplicatorFile=-1;
+  }
+  if(rank1-rank2<0){
+    multiplicatorRank=-1;
+  }
+  return (file1-file2-'a'*2)*multiplicatorFile==(rank1-rank2)*multiplicatorRank;
+}
+
+bool squares_share_file(File file1,Rank rank1,File file2, Rank rank2){
+  return file1==file2;
+}
+
+bool squares_share_rank(File file1,Rank rank1,File file2, Rank rank2){
+  return rank1==rank2;
 }
