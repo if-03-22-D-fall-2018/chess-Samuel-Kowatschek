@@ -47,7 +47,7 @@ bool squares_share_file(File file1,Rank rank1,File file2, Rank rank2);
 bool squares_share_rank(File file1,Rank rank1,File file2, Rank rank2);
 bool squares_share_diagonal(File file1,Rank rank1,File file2, Rank rank2);
 bool squares_share_knights_move(File file1,Rank rank1,File file2, Rank rank2);
-bool squares_share_pawns_move(enum Color color, enum Move NormalMove, File file1,Rank rank1,File file2, Rank rank2);
+bool squares_share_pawns_move(enum Color color, enum Move move, File file1,Rank rank1,File file2, Rank rank2);
 bool squares_share_queens_move(File file1 ,Rank rank1,File file2, Rank rank2);
 bool squares_share_kings_move(File file1,Rank rank1,File file2, Rank rank2);
 
