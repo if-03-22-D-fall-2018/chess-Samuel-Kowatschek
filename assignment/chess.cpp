@@ -1,10 +1,10 @@
 /*----------------------------------------------------------
- *				HTBLA-Leonding / Klasse: 2AHDV
+ *				HTBLA-Leonding / Klasse: 2DHIF
  * ---------------------------------------------------------
- * Exercise Number: 0
+ * Exercise Number: 06
  * Title:			chess.c
- * Author:			P. Bauer
- * Due Date:		November 03, 2010
+ * Author:			Samuel Kowatschek
+ * Due Date:		November 08 2018
  * ----------------------------------------------------------
  * Description:
  * Implementation of basic chess functions.
@@ -14,19 +14,21 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "general.h"
+#include <math.h>
 
 bool is_piece(struct ChessPiece cp, enum Color color, enum PieceType type){
   return cp.color == color && cp.type == type;
 }
 
 bool is_square_ok (File file, Rank rank) {
-  return file - 'a' < 8 && file - 'a' >= 0 && rank < 8 && rank >= 0;
+  return file <= 'h' && file >='a' && rank <= 8 && rank >= 1;
 }
 
 void init_chess_board(ChessBoard chess_board){
-  for(int i = 0; i < 8; i++){
+  for(int i = 0; i <  8; i++){
     for(int j = 0; j < 8; j++){
       chess_board[i][j].is_occupied = false;
+      chess_board[i][j].piece.type=NoPiece;
     }
   }
 }
@@ -38,17 +40,17 @@ struct ChessSquare* get_square(ChessBoard chess_board, File file, Rank rank){
   return &chess_board[rank - 1][file - 'a'];
 }
 
-bool add_piece(ChessBoard chess_board, char file, int rank, struct ChessPiece chess_piece){
-  if(!is_square_occupied(chess_board, file, rank) && is_square_ok(file, rank - 1)){
+bool add_piece(ChessBoard chess_board, char file, int rank, struct ChessPiece piece){
+  if(!is_square_occupied(chess_board, file, rank) && is_square_ok(file, rank)){
+    chess_board[rank-1][file-'a'].piece=piece;
     chess_board[rank-1][file-'a'].is_occupied=true;
-    chess_board[rank-1][file-'a'].piece=chess_piece;
+    return true;
   }
-  chess_board[rank-1][file-'a'].piece=chess_piece;
-  return true;
+  return false;
 }
 
 struct ChessPiece get_piece(ChessBoard chess_board, char file, int rank){
-  if (is_square_ok(file, rank - 1) && is_square_occupied(chess_board, file, rank)) {
+  if (is_square_ok(file, rank) && is_square_occupied(chess_board, file, rank)) {
   return chess_board[rank - 1][file - 'a'].piece;
 }
   struct ChessPiece temp;
@@ -57,21 +59,27 @@ struct ChessPiece get_piece(ChessBoard chess_board, char file, int rank){
 }
 
 bool is_square_occupied(ChessBoard chess_board, char file, int rank){
-  return chess_board[rank-1][file-'a'].is_occupied;
+  struct ChessSquare* square = get_square(chess_board, file, rank);
+  if (square != 0) {
+    return square->is_occupied;
+  }
+  return false;
 }
 
 bool remove_piece(ChessBoard chess_board, File file, Rank rank){
 struct ChessPiece temp_piece;
-  return file>'h'||rank>7||rank<0||file<'a'||chess_board[rank-1][file-'a'].piece.type==NoPiece;
-    temp_piece.type=NoPiece;
+  if (file>'h'||rank>7||rank<0||file<'a'||chess_board[rank-1][file-'a'].piece.type==NoPiece) {
+    return false;
+  }
+  temp_piece.type=NoPiece;
   chess_board[rank-1][file-'a'].piece=temp_piece;
   chess_board[rank-1][file-'a'].is_occupied=false;
   return true;
 }
 
 void setup_chess_board(ChessBoard chess_board){
-
-  for (size_t x = 1; x < 9; x++)
+init_chess_board(chess_board);
+  for (char x = 'a'; x <= 'h'; x++)
   {
     add_piece(chess_board, x, 2, {White, Pawn});
     add_piece(chess_board, x, 7, {Black, Pawn});
@@ -96,15 +104,14 @@ void setup_chess_board(ChessBoard chess_board){
 }
 
 bool squares_share_diagonal(File file1,Rank rank1,File file2, Rank rank2){
-  return (unsigned int) file1-file2-'a'*2==(unsigned int)rank1-rank2;
-
-}
-
-bool squares_share_file(File file1,Rank rank1,File file2, Rank rank2){
-  return rank1==rank2;
+  return fabs((double)file1-file2)==fabs((double)rank1-rank2);
 }
 
 bool squares_share_rank(File file1,Rank rank1,File file2, Rank rank2){
+  return rank1==rank2;
+}
+
+bool squares_share_file(File file1,Rank rank1,File file2, Rank rank2){
   return file1==file2;
 }
 
