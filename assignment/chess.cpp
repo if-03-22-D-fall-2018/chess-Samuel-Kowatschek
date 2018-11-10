@@ -120,6 +120,7 @@ bool squares_share_kings_move(File file1,Rank rank1,File file2, Rank rank2){
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 bool squares_share_kings_move(File file1,Rank rank1,File file2, Rank rank2){
   return file1+1==file2||file1-1==file2||file1-'a'+1==rank1||file1-'a'-1==rank2;
 }
@@ -127,6 +128,8 @@ bool squares_share_kings_move(File file1,Rank rank1,File file2, Rank rank2){
 bool squares_share_queens_move(File file1 ,Rank rank1,File file2, Rank rank2){
   return squares_share_diagonal(file1, rank1, file2, rank2)||squares_share_file(file1, rank1, file2, rank2)||squares_share_rank(file1,rank1,file2,rank2);
 =======
+=======
+>>>>>>> 966350fc415a226b456a403ad4e49e7955cc7c48
 bool squares_share_queens_move(File file1 ,Rank rank1,File file2, Rank rank2){
   return squares_share_file(file1, file2, rank1, rank2)||squares_share_rank(file1, file2, rank1, rank2)||squares_share_diagonal(file1, file2, rank1, rank2);
 }
