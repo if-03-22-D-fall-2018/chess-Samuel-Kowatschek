@@ -104,15 +104,15 @@ init_chess_board(chess_board);
 }
 
 bool squares_share_diagonal(File file1,Rank rank1,File file2, Rank rank2){
-  return fabs((double)file1-file2)==fabs((double)rank1-rank2);
+  return fabs((double)file1-file2)==fabs((double)rank1-rank2)&&is_square_ok(file1, rank1)&&is_square_ok(file2,rank2);
 }
 
 bool squares_share_rank(File file1,Rank rank1,File file2, Rank rank2){
-  return rank1==rank2;
+  return rank1==rank2&&is_square_ok(file1, rank1)&&is_square_ok(file2,rank2);
 }
 
 bool squares_share_file(File file1,Rank rank1,File file2, Rank rank2){
-  return file1==file2;
+  return file1==file2&&is_square_ok(file1, rank1)&&is_square_ok(file2,rank2);
 }
 
 bool squares_share_kings_move(File file1,Rank rank1,File file2, Rank rank2){
