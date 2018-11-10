@@ -130,11 +130,26 @@ bool squares_share_knights_move(File file1, Rank rank1, File file2, Rank rank2){
 }
 
 bool squares_share_pawns_move(enum Color color, enum Move move, File file1, Rank rank1, File file2, Rank rank2){
-  if(move==NormalMove){
-    return rank1+1==rank2||rank1-1==rank2;
-  }
-  if(move==CaptureMove){
-    return (rank1+1==rank2&&file1-'a'+1==file2)||(rank1-1==rank2&&file1-'a'-1==file2);
+  if (color==White&&rank1>1) {
+    if(move==NormalMove){
+      if(rank1==2){
+        return (rank1+1==rank2||rank1+2==rank2)&&file1==file2;
+      }else{
+        return rank1+1==rank2&&file1==file2;
+      }
+    }else{
+      return rank1+1==rank2&&(file1+1==file2||file1-1==file2);
+    }
+  }else if(color==Black&&rank1<=7){
+    if(move==NormalMove){
+      if(rank1==7){
+        return (rank1-1==rank2||rank1-2==rank2)&&file1==file2;
+      }else{
+        return rank1-1==rank2&&file1==file2;
+      }
+    }else{
+      return rank1-1==rank2&&(file1-1==file2||file1+1==file2);
+    }
   }
   return false;
 }
